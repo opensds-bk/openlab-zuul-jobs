@@ -39,24 +39,24 @@
           mkdir -p $GOPATH/{bin,pkg}
           export PATH=$PATH:$GOPATH/bin:/usr/local/go/bin
           export GOBIN=$GOPATH/bin
-		  export OPENSDS_DIR=$GOPATH/src/github.com/opensds
-		  export OPENSDS_ROOT=$OPENSDS_DIR/opensds
+          export OPENSDS_DIR=$GOPATH/src/github.com/opensds
+		      export OPENSDS_ROOT=$OPENSDS_DIR/opensds
 		
-		  # OpenSDS Download and Build
+		      # OpenSDS Download and Build
           if [ ! -d $OPENSDS_DIR ]; then
-	      mkdir -p $OPENSDS_DIR
+	          mkdir -p $OPENSDS_DIR
           fi
           cd $OPENSDS_DIR
           if [ ! -d $OPENSDS_ROOT ]; then
-	        git clone https://github.com/opensds/opensds.git -b development
+	          git clone https://github.com/opensds/opensds.git -b development
           fi
           cd $OPENSDS_ROOT
           if [ ! -d $OPENSDS_ROOT/build ]; then
-	        make
+	          make
           fi
 
-		  # Start integration test.		
-		  sudo ./test/integration/prepare.sh
+		      # Start integration test.		
+		      sudo ./test/integration/prepare.sh
           go test -v github.com/opensds/opensds/test/integration/... -tags integration
         executable: /bin/bash
         chdir: '{{ zuul.project.src_dir }}'
